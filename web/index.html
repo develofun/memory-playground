@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
   <!--
     If you are serving your web app in a path other than the root, change the
@@ -18,21 +18,49 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta name="description" content="초등 저학년 기억력 놀이터">
 
   <!-- iOS meta tags & icons -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="memory_playground">
+  <meta name="apple-mobile-web-app-title" content="기억력 놀이터">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>memory_playground</title>
+  <title>기억력 놀이터</title>
   <link rel="manifest" href="manifest.json">
+  <style>
+    /* 엔진·글꼴을 불러오는 동안 보여줄 화면 (첫 프레임이 그려지면 사라짐) */
+    #loading {
+      position: fixed; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 16px;
+      background: #FFF8F3; font-family: sans-serif; color: #8A4B1F;
+      transition: opacity .3s;
+    }
+    #loading .spinner {
+      width: 56px; height: 56px; border-radius: 50%;
+      border: 6px solid #FFD9BF; border-top-color: #FF8A3D;
+      animation: spin 1s linear infinite;
+    }
+    #loading p { font-size: 20px; margin: 0; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
 </head>
 <body>
+  <div id="loading" aria-live="polite">
+    <div class="spinner"></div>
+    <p>기억력 놀이터를 준비하고 있어요…</p>
+  </div>
+  <script>
+    window.addEventListener('flutter-first-frame', function () {
+      var el = document.getElementById('loading');
+      if (!el) return;
+      el.style.opacity = '0';
+      setTimeout(function () { el.remove(); }, 300);
+    });
+  </script>
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>

@@ -1,30 +1,41 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
+import 'dart:math';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:memory_playground/main.dart';
+import 'package:memory_playground/data/models/profile.dart';
+import 'package:memory_playground/shared/widgets/parent_gate.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  group('MathChallenge', () {
+    test('범위: 12~19 × 3~9', () {
+      final r = Random(42);
+      for (var i = 0; i < 500; i++) {
+        final c = MathChallenge.random(r);
+        expect(c.a, inInclusiveRange(12, 19));
+        expect(c.b, inInclusiveRange(3, 9));
+      }
+    });
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    test('정답 확인', () {
+      final c = MathChallenge(14, 6);
+      expect(c.question, '14 × 6 = ?');
+      expect(c.check('84'), isTrue);
+      expect(c.check('85'), isFalse);
+      expect(c.check(''), isFalse);
+      expect(c.check('abc'), isFalse);
+    });
+  });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  test('Profile toMap/fromMap 왕복', () {
+    final p = Profile(
+      id: 'abc',
+      name: '테스트',
+      avatar: '🐶',
+      createdAt: DateTime(2026, 11, 20, 9, 30),
+    );
+    final restored = Profile.fromMap(p.toMap());
+    expect(restored.id, p.id);
+    expect(restored.name, p.name);
+    expect(restored.avatar, p.avatar);
+    expect(restored.createdAt, p.createdAt);
   });
 }

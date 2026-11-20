@@ -26,3 +26,14 @@ flutter test                   # 단위 테스트
 ## 개발 환경
 - Flutter 3.38 / Dart 3.10
 - Android 빌드: Android Studio에 포함된 JDK 17 이상
+
+## 개발 도구
+- **화면 점검 (Playwright)**: 웹 빌드를 띄우고 화면 흐름·음성 호출·글꼴 로딩을 자동 확인
+  ```bash
+  flutter build web && python3 -m http.server 5556 -d build/web &
+  cd tool/e2e && npm install && npx playwright install chromium && npm run smoke
+  ```
+  스크린샷은 `tool/e2e/screenshots/`에 저장됩니다.
+- **글꼴 다시 만들기**: `tool/fonts/build_fonts.py` (fonttools 필요). 웹에서 한글·이모지가 □로
+  깜빡이지 않도록 Jua(기본), Noto Sans KR(빠진 한글 보충), Noto Color Emoji(웹 전용)를 앱에 포함합니다.
+  모두 SIL Open Font License 1.1 — `assets/fonts/LICENSE-*.txt`

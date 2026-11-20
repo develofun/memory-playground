@@ -1,0 +1,13 @@
+{
+  "name": "memory-playground-e2e",
+  "version": "1.0.0",
+  "description": "Playwright 화면 점검",
+  "scripts": {
+    "smoke": "node smoke.mjs"
+  },
+  "type": "commonjs",
+  "devDependencies": {
+    "playwright": "^1.65.1"
+  },
+  "private": true
+}

@@ -43,3 +43,17 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+tool/fonts/.cache/
+.venv/
+
+# e2e (Playwright)
+tool/e2e/node_modules/
+tool/e2e/screenshots/
+
+# Python (tool/fonts)
+__pycache__/
+*.pyc
+
+# 로컬 환경 변수·비밀 값
+.env
+.env.*
